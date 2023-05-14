@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from money_tracker.models import TransactionRecord
@@ -140,3 +141,21 @@ def delete_transaction(request, id):
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('money_tracker:show_tracker'))
 
+@csrf_exempt
+def create_transaction_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+
+        new_transaction = TransactionRecord.objects.create(
+            name = data["name"],
+            type = data["type"],
+            amount = int(data["amount"]),
+            description = data["description"]
+        )
+
+        new_transaction.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)

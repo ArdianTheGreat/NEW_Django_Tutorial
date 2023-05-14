@@ -1,5 +1,5 @@
 from django.urls import path
-from money_tracker.views import show_tracker
+from money_tracker.views import create_transaction_flutter, show_tracker
 from money_tracker.views import create_transaction
 from money_tracker.views import show_xml
 from money_tracker.views import show_json
@@ -30,4 +30,7 @@ urlpatterns = [
     path('modify/<int:id>', modify_transaction, name='modify_transaction'),
     path('delete/<int:id>', delete_transaction, name='delete_transaction'), 
     path('create-ajax/', create_transaction_ajax, name='create_transaction_ajax'),
+    path('create-flutter/', create_transaction_flutter, name='create_transaction_flutter'),
+
+
 ]
